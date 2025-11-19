@@ -1,0 +1,19 @@
+# === Compilados de Java ===
+*.class
+
+# Carpetas de compilación / build
+bin/
+out/
+build/
+target/
+
+# Archivos de log
+*.log
+
+# Configs de VS Code
+.vscode/
+
+# Otros archivos temporales
+*.tmp
+*.swp
+*.DS_Store
