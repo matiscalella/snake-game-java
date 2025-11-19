@@ -4,7 +4,7 @@ import java.util.ArrayList; // Para manejar la lista de segmentos de la serpient
 import java.util.Random; // Para generar posiciones aleatorias de la comida
 import javax.swing.*;
 
-public class SnakeGame extends JPanel implements ActionListener{
+public class SnakeGame extends JPanel implements ActionListener, KeyListener{
 
     private class Tile {
         int x;
@@ -37,6 +37,8 @@ public class SnakeGame extends JPanel implements ActionListener{
         this.boardHeight = boardHeight;
         setPreferredSize(new Dimension(boardWidth, boardHeight));
         setBackground(Color.BLACK);
+        addKeyListener(this);
+        setFocusable(true);
 
         snakeHead = new Tile(5, 5);
 
@@ -45,7 +47,7 @@ public class SnakeGame extends JPanel implements ActionListener{
         placeFood();
 
         velocityX = 0;
-        velocityY = 1;
+        velocityY = 0;
 
         gameLoop = new Timer(100, this);
         gameLoop.start();
@@ -96,5 +98,30 @@ public class SnakeGame extends JPanel implements ActionListener{
         move(); // Mover la serpiente
         repaint(); // Llama a paintComponent para redibujar el juego
     }
+
+// ------ Metodo para manejar las teclas presionadas
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_UP && velocityY != 1) { // Evitar que la serpiente se mueva en la direccion opuesta
+            velocityX = 0;
+            velocityY = -1;
+        } else if (e.getKeyCode() == KeyEvent.VK_DOWN && velocityY != -1) {
+            velocityX = 0;
+            velocityY = 1;
+        } else if (e.getKeyCode() == KeyEvent.VK_LEFT && velocityX != 1) {
+            velocityX = -1;
+            velocityY = 0;
+        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT && velocityX != -1) {
+            velocityX = 1;
+            velocityY = 0;
+        }
+    }
+
+    // No se usan
+    @Override
+    public void keyTyped(KeyEvent e) {}
+
+    @Override
+    public void keyReleased(KeyEvent e) {}
 
 }

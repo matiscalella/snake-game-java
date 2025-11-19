@@ -15,5 +15,6 @@ public class App {
         SnakeGame snakeGame = new SnakeGame(boardWidth, boardHeight); // Crear una instancia del juego
         frame.add(snakeGame); // Agregar el panel del juego a la ventana
         frame.pack(); // Ajustar el tamaño de la ventana al contenido
+        snakeGame.requestFocus(); // Solicitar el foco para capturar eventos de teclado
     }
 }
