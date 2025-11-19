@@ -29,6 +29,8 @@ public class SnakeGame extends JPanel implements ActionListener{
 
 // ------ Logica del juego
     Timer gameLoop;
+    int velocityX;
+    int velocityY;
     
     public SnakeGame(int boardWidth, int boardHeight) {
         this.boardWidth = boardWidth;
@@ -41,6 +43,9 @@ public class SnakeGame extends JPanel implements ActionListener{
         food = new Tile(10, 10);
         random = new Random();
         placeFood();
+
+        velocityX = 0;
+        velocityY = 1;
 
         gameLoop = new Timer(100, this);
         gameLoop.start();
@@ -80,8 +85,15 @@ public class SnakeGame extends JPanel implements ActionListener{
         food.y = random.nextInt(boardHeight / tileSize); // Numero aleatorio entre 0 y el numero de losetas en el alto (24)
     }
 
+    public void move() {
+        // Mover la cabeza de la serpiente
+        snakeHead.x += velocityX;
+        snakeHead.y += velocityY;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
+        move(); // Mover la serpiente
         repaint(); // Llama a paintComponent para redibujar el juego
     }
 
