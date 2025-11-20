@@ -67,24 +67,38 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener{
     public void draw(Graphics g) { 
 
         // Grilla
-        for (int i = 0; i < boardWidth / tileSize; i++) {
-            // Dibujar líneas verticales y horizontales (x1, y1, x2, y2)
-            g.drawLine(i * tileSize, 0, i * tileSize, boardHeight);
-            g.drawLine(0, i * tileSize, boardWidth, i * tileSize);
-        }
+        // for (int i = 0; i < boardWidth / tileSize; i++) {
+        //     // Dibujar líneas verticales y horizontales (x1, y1, x2, y2)
+        //     g.drawLine(i * tileSize, 0, i * tileSize, boardHeight);
+        //     g.drawLine(0, i * tileSize, boardWidth, i * tileSize);
+        // }
         // Dibujar la comida
         g.setColor(Color.RED);
         g.fillRect(food.x * tileSize, food.y * tileSize, tileSize, tileSize);
+        g.fill3DRect(food.x * tileSize, food.y * tileSize, tileSize, tileSize, true);
 
         // Dibujar la cabeza de la serpiente
         g.setColor(Color.GREEN);
-        g.fillRect(snakeHead.x * tileSize, snakeHead.y * tileSize, tileSize, tileSize);
+        //g.fillRect(snakeHead.x * tileSize, snakeHead.y * tileSize, tileSize, tileSize);
+        g.fill3DRect(snakeHead.x * tileSize, snakeHead.y * tileSize, tileSize, tileSize, true);
 
         // Dibujar el cuerpo de la serpiente
         for (int i = 0; i < snakeBody.size(); i++) {
             Tile snakePart = snakeBody.get(i);
-            g.fillRect(snakePart.x * tileSize, snakePart.y * tileSize, tileSize, tileSize);
-        }        
+            //g.fillRect(snakePart.x * tileSize, snakePart.y * tileSize, tileSize, tileSize);
+            g.fill3DRect(snakePart.x * tileSize, snakePart.y * tileSize, tileSize, tileSize, true);
+        }
+
+        // Puntuacion
+        g.setFont(new Font("Arial", Font.PLAIN, 20));
+        if (gameOver) {
+            g.setColor(Color.LIGHT_GRAY);
+            g.drawString("Fin del juego.", boardWidth / 2 - 60, boardHeight / 2 - 30);
+            g.drawString("Puntuacion: " + snakeBody.size(), boardWidth / 2 - 60, boardHeight / 2);
+        } else {
+            g.setColor(Color.LIGHT_GRAY);
+            g.drawString("Puntuacion: " + snakeBody.size(), 10, 25);
+        }
     }
 // ------- Funcion para colocar la comida en una posicion aleatoria
     public void placeFood() {
